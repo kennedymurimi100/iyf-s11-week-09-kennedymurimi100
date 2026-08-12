@@ -1,34 +1,53 @@
-import { Link } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
+function Posts({ newPosts = [] }) {
+    const [search, setSearch] = useState('');
 
-function Posts() {
-  const { data, loading, error } = useFetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+    const {
+        data: posts,
+        loading,
+        error
+    } = useFetch('https://jsonplaceholder.typicode.com/posts');
 
-  if (loading) {
-    return <p>Loading posts...</p>;
-  }
+    if (loading) {
+        return <p>Loading posts...</p>;
+    }
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
-  return (
-    <div>
-      <h1>Posts</h1>
+    const allPosts = [...newPosts, ...(posts || [])];
 
-      {data.map((post) => (
-        <article key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
+    const filteredPosts = allPosts.filter((post) =>
+        post.title.toLowerCase().includes(search.toLowerCase())
+    );
 
-          <Link to={`/posts/${post.id}`}>Read More</Link>
-        </article>
-      ))}
-    </div>
-  );
+    return (
+        <div>
+            <h1>Community Posts</h1>
+
+            <input
+                type="text"
+                placeholder="Search posts..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {filteredPosts.map((post) => (
+                <article key={post.id}>
+                    <h2>{post.title}</h2>
+                    <p>{post.body}</p>
+
+                    <Link to={`/posts/${post.id}`}>
+                        Read More
+                    </Link>
+                </article>
+            ))}
+        </div>
+    );
 }
 
 export default Posts;

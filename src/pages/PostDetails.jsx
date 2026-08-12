@@ -1,27 +1,68 @@
-import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-function PostDetails() {
-  const { postId } = useParams();
+function PostDetails({ newPosts = [] }) {
+    const { postId } = useParams();
+    const [post, setPost] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  const { data, loading, error } = useFetch(
-    `https://jsonplaceholder.typicode.com/posts/${postId}`
-  );
+    useEffect(() => {
+        const localPost = newPosts.find(
+            (item) => String(item.id) === postId
+        );
 
-  if (loading) {
-    return <p>Loading post...</p>;
-  }
+        if (localPost) {
+            setPost(localPost);
+            setLoading(false);
+            return;
+        }
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+        const fetchPost = async () => {
+            try {
+                setLoading(true);
+                setError(null);
 
-  return (
-    <div>
-      <h1>{data.title}</h1>
-      <p>{data.body}</p>
-    </div>
-  );
+                const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/posts/${postId}`
+                );
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch post');
+                }
+
+                const data = await response.json();
+                setPost(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPost();
+    }, [postId, newPosts]);
+
+    if (loading) {
+        return <p>Loading post...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+
+    if (!post) {
+        return <p>Post not found.</p>;
+    }
+
+    return (
+        <article>
+            <Link to="/posts">&larr; Back to Posts</Link>
+
+            <h1>{post.title}</h1>
+            <p>{post.body}</p>
+        </article>
+    );
 }
 
 export default PostDetails;

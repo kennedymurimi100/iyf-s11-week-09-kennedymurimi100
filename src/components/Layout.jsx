@@ -12,9 +12,14 @@ function Layout() {
             backgroundColor: "#f4f4f4",
           }}
         >
-          <Link to="/">Home</Link>
-          <Link to="/posts">Posts</Link>
-          <Link to="/about">About</Link>
+         <nav>
+
+    <Link to="/">Home</Link>
+    <Link to="/posts">Posts</Link>
+    <Link to="/create-post">Create Post</Link>
+    <Link to="/about">About</Link>
+    
+</nav>
         </nav>
       </header>
 
