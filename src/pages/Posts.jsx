@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import { Card, Avatar } from '../components/shared';
 
 function Posts({ newPosts = [] }) {
     const [search, setSearch] = useState('');
@@ -11,13 +12,13 @@ function Posts({ newPosts = [] }) {
         error
     } = useFetch('https://jsonplaceholder.typicode.com/posts');
 
-    if (loading) {
-        return <p>Loading posts...</p>;
-    }
+   if (loading) {
+    return <p className="loading">Loading posts...</p>;
+}
 
-    if (error) {
-        return <p>Error: {error}</p>;
-    }
+if (error) {
+    return <p className="error">Error: {error}</p>;
+}
 
     const allPosts = [...newPosts, ...(posts || [])];
 
@@ -37,15 +38,21 @@ function Posts({ newPosts = [] }) {
             />
 
             {filteredPosts.map((post) => (
-                <article key={post.id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.body}</p>
+    <Card key={post.id}>
+        <Avatar
+            src={`https://i.pravatar.cc/150?img=${(post.id % 10) + 1}`}
+            alt="Post author avatar"
+            size="small"
+        />
 
-                    <Link to={`/posts/${post.id}`}>
-                        Read More
-                    </Link>
-                </article>
-            ))}
+        <h2>{post.title}</h2>
+        <p>{post.body}</p>
+
+        <Link to={`/posts/${post.id}`}>
+            Read More
+        </Link>
+    </Card>
+))}
         </div>
     );
 }

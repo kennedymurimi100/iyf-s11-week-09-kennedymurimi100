@@ -2,7 +2,7 @@ function Avatar({ src, alt = 'User avatar', size = 'medium' }) {
     const sizeClasses = {
         small: 'avatar-small',
         medium: 'avatar-medium',
-        large: 'avatar-large'
+        large: 'avatar-large',
     };
 
     return (

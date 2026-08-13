@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Card } from '../components/shared';
 
 function PostDetails({ newPosts = [] }) {
     const { postId } = useParams();
@@ -56,12 +57,12 @@ function PostDetails({ newPosts = [] }) {
     }
 
     return (
-        <article>
+        <Card>
             <Link to="/posts">&larr; Back to Posts</Link>
 
             <h1>{post.title}</h1>
             <p>{post.body}</p>
-        </article>
+        </Card>
     );
 }
 

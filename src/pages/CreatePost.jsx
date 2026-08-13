@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Input } from '../components/shared';
+import { Input, Button, Modal } from '../components/shared';
 
 function CreatePost({ onCreatePost }) {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,6 +16,7 @@ function CreatePost({ onCreatePost }) {
         };
 
         onCreatePost(newPost);
+        setShowModal(true);
 
         setTitle('');
         setBody('');
@@ -45,8 +47,17 @@ function CreatePost({ onCreatePost }) {
                     />
                 </div>
 
-                <button type="submit">Create Post</button>
+               <Button type="submit">
+  Create Post
+</Button>
             </form>
+
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Post Created!">
+                <p>Your post has been added successfully.</p>
+                <Button onClick={() => setShowModal(false)}>
+                    Close
+                </Button>
+            </Modal>
         </div>
     );
 }
