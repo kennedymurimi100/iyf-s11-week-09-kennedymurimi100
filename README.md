@@ -1,16 +1,61 @@
-# React + Vite
+# CommunityHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+CommunityHub is a React-based community platform built as part of the IYF Season 11 Week 9 React assignment.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React Router navigation
+- Home page
+- Posts listing
+- Dynamic post detail pages
+- Create Post form
+- About page
+- JSONPlaceholder API integration
+- Local post creation using React state
+- Search/filter posts
+- Loading states
+- Error handling
+- Reusable components
+- Responsive/mobile-friendly design
 
-## React Compiler
+## Reusable Components
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The project includes a shared component library with:
 
-## Expanding the Oxlint configuration
+- Button
+- Input
+- Card
+- Modal
+- Avatar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Technologies Used
+
+- React
+- React Router
+- Vite
+- JavaScript
+- CSS
+- JSONPlaceholder API
+
+## Routes
+
+| Route | Description |
+|---|---|
+| `/` | Home |
+| `/posts` | View community posts |
+| `/posts/:postId` | View a single post |
+| `/create-post` | Create a new post |
+| `/about` | About CommunityHub |
+
+## API
+
+Posts are fetched from:
+
+https://jsonplaceholder.typicode.com/posts
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
